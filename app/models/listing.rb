@@ -8,6 +8,8 @@ validates_attachment_presence :image
 
 
 belongs_to :user
+belongs_to :category
+belongs_to :subcategories
 has_many :orders
 
 end

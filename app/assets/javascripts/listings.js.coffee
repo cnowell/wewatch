@@ -1,14 +1,13 @@
   jQuery ->
     Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
-    listing.setupForm()
+    Listing.setupForm()
        
-  listing =
+  Listing =
     setupForm: ->
       $('#new_listing').submit ->
-        if $('input').length > 6
-          $('input[type=submit]').attr('disabled', true)
-          Stripe.bankAccount.createToken($('#new_listing'), listing.handleStripeResponse)
-          false
+        $('input[type=submit]').attr('disabled', true)
+        Stripe.bankAccount.createToken($('#new_listing'), listing.handleStripeResponse)
+        false
         
     handleStripeResponse: (status, response) ->
       if status == 200
@@ -17,4 +16,3 @@
       else
         $('#stripe_error').text(response.error.message).show()
         $('input[type=submit]').attr('disabled', false)
-

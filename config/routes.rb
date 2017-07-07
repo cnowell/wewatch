@@ -1,18 +1,23 @@
 Rails.application.routes.draw do
 
+  resources :reviews
+  resources :subcategories
+  resources :subcategories
+  resources :categories
   devise_for :users
   resources :listings do
   resources :orders, only: [:new, :create]
-  
+  resources :subcategories
 end
 
  get 'pages/about'
  get 'pages/contact'
+ get 'subcategories' => "subcategories#index"
  get 'seller' => "listings#seller"
  get 'sales' => "orders#sales"
  get 'purchases' => "orders#purchases"
- 
- 
+ get 'pages/feedback'
+ get 'pages/discount'
  root 'listings#index'
  
  

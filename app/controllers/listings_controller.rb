@@ -11,7 +11,12 @@ class ListingsController < ApplicationController
   
   
   def index
-    @listings = Listing.all.order("created_at DESC")
+    if params[:category].blank?
+      @listings = Listing.all.order("created_at DESC")
+    else
+      @category_id = Category.find_by(name: params[:category]).id
+      @listings = Listing.where(category_id: @category_id).order("created_at DESC")
+    end
   end
 
   # GET /listings/1
@@ -44,11 +49,13 @@ class ListingsController < ApplicationController
         :country => 'US', 
         :email => current_user.email 
         ) 
-    end 
+        current_user.recipient = recipient.id
+        current_user.save
+    
+    end
     
     
-    current_user.recipient = recipient.id
-    current_user.save
+
   
     
       
@@ -98,7 +105,7 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.require(:listing).permit(:name, :description, :price, :image)
+      params.require(:listing).permit(:name, :category_id, :description, :price, :image)
     end
     
     def check_user
