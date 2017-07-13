@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707161924) do
+ActiveRecord::Schema.define(version: 20170712145642) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -45,12 +45,22 @@ ActiveRecord::Schema.define(version: 20170707161924) do
     t.integer  "seller_id"
   end
 
+  create_table "restaurants", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "website"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer  "rating"
     t.text     "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "user_id"
+    t.integer  "restaurant_id"
   end
 
   create_table "subcategories", force: :cascade do |t|
@@ -61,6 +71,12 @@ ActiveRecord::Schema.define(version: 20170707161924) do
   end
 
   add_index "subcategories", ["Category_id"], name: "index_subcategories_on_Category_id"
+
+  create_table "urs", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
-
+ 
+  devise_for :users 
+   resources :restaurants do 
   resources :reviews, except: [:show, :index]
-  resources :subcategories
+ end
   resources :subcategories
   resources :categories
-  devise_for :users
+
   resources :listings do
   resources :orders, only: [:new, :create]
-  resources :subcategories
+
+  
 end
 
  get 'pages/about'
@@ -18,6 +21,7 @@ end
  get 'purchases' => "orders#purchases"
  get 'pages/feedback'
  get 'pages/discount'
+ get 'reviews/sellerPage'
  root 'listings#index'
  
  
@@ -76,3 +80,4 @@ end
   #     resources :products
   #   end
 end
+
